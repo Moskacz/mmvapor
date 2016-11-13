@@ -8,6 +8,13 @@ drop.get { req in
     ])
 }
 
+drop.get("/hello", ":name") { request in
+    if let name = request.parameters["name"]?.string {
+        return "Hello \(name)"
+    }
+    throw Abort.badRequest
+}
+
 drop.resource("posts", PostController())
 
 drop.run()
